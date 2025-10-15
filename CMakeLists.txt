@@ -1,0 +1,37 @@
+cmake_minimum_required(VERSION 3.31)
+project(fsuipc LANGUAGES CXX VERSION 0.1.0)
+
+set(CMAKE_CXX_STANDARD 20)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
+set(CMAKE_CXX_EXTENSIONS OFF)
+
+set(OUTPUT_DIR ${PROJECT_SOURCE_DIR}/bin)
+set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${OUTPUT_DIR})
+set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${OUTPUT_DIR})
+set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${OUTPUT_DIR})
+
+if (PROJECT_BINARY_DIR STREQUAL PROJECT_SOURCE_DIR)
+    message(WARNING "The binary directory of CMake cannot be the same as source directory!")
+endif ()
+
+set(CMAKE_CXX_FLAGS "-fPIC -static -static-libgcc -static-libstdc++ ${CMAKE_CXX_FLAGS}")
+if (CMAKE_BUILD_TYPE STREQUAL "Release")
+    set(CMAKE_CXX_FLAGS_RELEASE "-O3 -DNDEBUG")
+elseif (CMAKE_BUILD_TYPE STREQUAL "Debug")
+    set(CMAKE_CXX_FLAGS_DEBUG "-O0 -g")
+endif ()
+
+include(file.cmake)
+
+include_directories(src)
+
+message("BUILD_TYPE: ${CMAKE_BUILD_TYPE}")
+message("BUILD_FLAGS: ${CMAKE_CXX_FLAGS}")
+message("PROJECT_NAME: ${PROJECT_NAME}")
+message("PROJECT_VERSION: ${PROJECT_VERSION}")
+message("PROJECT_SOURCE_DIR: ${PROJECT_SOURCE_DIR}")
+message("PROJECT_BINARY_DIR: ${PROJECT_BINARY_DIR}")
+message("CMAKE_SYSTEM_NAME: ${CMAKE_SYSTEM_NAME}")
+message("CMAKE_SYSTEM_PROCESSOR: ${CMAKE_SYSTEM_PROCESSOR}")
+
+add_library(${PROJECT_NAME} SHARED ${SOURCE_FILE})
