@@ -121,6 +121,18 @@ namespace FSUIPC {
         COM2StandbyVer1() : ReadDataWORD(0x311C) {}
     };
 
+    struct ReadDataBYTE {
+        uint32_t offset;
+        size_t size;
+        BYTE data;
+
+        explicit constexpr ReadDataBYTE(uint32_t off) : offset(off), size(sizeof(BYTE)), data(0) {}
+    };
+
+    struct RadioSwitch: ReadDataBYTE {
+        RadioSwitch() : ReadDataBYTE(0x3122) {}
+    };
+
     struct ReadDataDWORD {
         uint32_t offset;
         size_t size;
@@ -143,16 +155,6 @@ namespace FSUIPC {
 
     struct COM2StandbyVer2 : ReadDataDWORD {
         COM2StandbyVer2() : ReadDataDWORD(0x05D0) {}
-    };
-
-    template<typename T>
-    struct WriteDataDef {
-        uint32_t offset;
-        size_t size;
-        T data;
-
-        explicit constexpr WriteDataDef(uint32_t off, size_t size = sizeof(T), T data = {})
-                : offset(off), size(size), data(data) {}
     };
 
     class FSUIPCClient;

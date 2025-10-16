@@ -114,6 +114,10 @@ namespace FSUIPC {
         return true;
     }
 
+    bool FSUIPCClient::readBYTE(ReadDataBYTE &data) {
+        return read(data.offset, data.size, &data.data);
+    }
+
     bool FSUIPCClient::readWORD(ReadDataWORD &data) {
         return read(data.offset, data.size, &data.data);
     }

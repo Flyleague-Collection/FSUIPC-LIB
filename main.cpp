@@ -19,6 +19,8 @@ FSUIPC::COM1StandbyVer2 com1StandbyVer2;
 FSUIPC::COM2ActiveVer2 com2ActiveVer2;
 FSUIPC::COM2StandbyVer2 com2StandbyVer2;
 
+FSUIPC::RadioSwitch radioSwitch;
+
 uint32_t com1ActiveLast = 0;
 uint32_t com1StandbyLast = 0;
 uint32_t com2ActiveLast = 0;
@@ -64,6 +66,7 @@ DLL_EXPORT [[maybe_unused]] ReturnValue *ReadFrequencyInfo() {
         returnValue->errMessage = "Unsupported FSUIPC api version";
         return returnValue;
     }
+    client.readBYTE(radioSwitch);
     if (apiVersion == FSUIPC::ApiVersion::API_VER1) {
         readFrequencyVer1();
     } else {
@@ -75,6 +78,8 @@ DLL_EXPORT [[maybe_unused]] ReturnValue *ReadFrequencyInfo() {
     returnValue->frequency[1] = com1Standby;
     returnValue->frequency[2] = com2Active;
     returnValue->frequency[3] = com2Standby;
+
+    returnValue->frequencyFlag = radioSwitch.data;
 
     if (client.getLastError() == FSUIPC::Error::OK) {
         returnValue->requestStatus = true;

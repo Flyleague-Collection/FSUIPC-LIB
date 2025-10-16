@@ -21,10 +21,6 @@ elseif (CMAKE_BUILD_TYPE STREQUAL "Debug")
     set(CMAKE_CXX_FLAGS_DEBUG "-O0 -g")
 endif ()
 
-include(file.cmake)
-
-include_directories(src)
-
 message("BUILD_TYPE: ${CMAKE_BUILD_TYPE}")
 message("BUILD_FLAGS: ${CMAKE_CXX_FLAGS}")
 message("PROJECT_NAME: ${PROJECT_NAME}")
@@ -33,5 +29,9 @@ message("PROJECT_SOURCE_DIR: ${PROJECT_SOURCE_DIR}")
 message("PROJECT_BINARY_DIR: ${PROJECT_BINARY_DIR}")
 message("CMAKE_SYSTEM_NAME: ${CMAKE_SYSTEM_NAME}")
 message("CMAKE_SYSTEM_PROCESSOR: ${CMAKE_SYSTEM_PROCESSOR}")
+
+include(file.cmake)
+
+include_directories(src)
 
 add_library(${PROJECT_NAME} SHARED ${SOURCE_FILE})

@@ -9,6 +9,7 @@
 typedef struct ReturnValue {
     bool requestStatus{false};
     const char *errMessage{"No error found"};
+    uint8_t frequencyFlag{};
     uint32_t frequency[4]{};
     uint32_t status{FSUIPC::SimConnectionStatus::NO_CONNECTION};
 } ReturnValue;

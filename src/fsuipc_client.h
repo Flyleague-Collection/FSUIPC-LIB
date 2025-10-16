@@ -28,6 +28,8 @@ namespace FSUIPC {
 
         bool read(uint32_t offset, size_t size, void *destination);
 
+        bool readBYTE(ReadDataBYTE &data);
+
         bool readWORD(ReadDataWORD &data);
 
         bool readDWORD(ReadDataDWORD &data);
